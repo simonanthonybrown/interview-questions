@@ -86,7 +86,7 @@ export class Calculator {
   }
 
   public IsStockAvailable(productId: number, quantity: number): boolean {
-    if (productId && quantity === 0) {
+    if (productId === 0 && quantity === 0) {
       console.log("No stock currently availble for productID:", productId)
       return false;
     } else {
