@@ -1,61 +1,34 @@
-# Instructions
+## Refactoring Notes
 
-To be used for coding interviews where you want to see a candiate code live
+### General
+- Removed Mocha elements and "lodash" requirement as I planned to implement Jest instead of Mocha for testing
 
-- Small and simple so it can be absorbed easily
-- To help a candiate show what they can do without preparing code offline
-- To make sure we see candiate code rather than setting a task that is performed offline and presented to us.
+### Greeter Class
+- Added export statements to three main classes so that they could be accessed by the test files and Jest
+- Added number type to return value of greet() method
 
-We will have a few options for our default langauges
+### StockFetch Interface
+- Renamed 'IInvetoryRepo' to 'StockFetch', I found the convention to be confusing
 
-- C#
-- Typescript
-- Python (coming soon!)
+### InverntoryRepo Class
+- Created stockLevel variable to return rather than returning the equation directly
+- Added a console log to give some useful information about the stock level found for productId
 
-# Pre Interview Setup
+### Calculator Class
+- Renamed '_inventoryRepo' to 'privInventoryRepo' as naming convention was confusing to me
+- Renamed all instances of the parameter 'quantitiy' as it was mis-spelled 'quanity'
+- Added TypeError catch in NetTotal function as a result of unit testing for negative integers being added as parameters - NOTE: this style of error handling should be added to all Calculator methods in future, didn't have time to implement this time.
+- Renamed 'StockRunningLowMultiplier' to 'LowStockMultiplier' due to being a little too wordy
+- Implemented simple logic for the 'IsStockAvailable' method as it was not yet complete
 
-## CoderPad.io
+## Unit Testing with Jest
 
-- Simple to prepare and try out
-- Just go to https://app.coderpad.io/sandbox and type away
-- We will ask a candiates to share their screen
+All packages to be installed can be found in "package.josn". Please make sure to run `npm --save-dev <package-name>` in your local environment before attempting to run these unit tests.
 
-## Web Ex
+I have included the node_modules folder in this zip file for ease, but if you'd rather start the environment fresh on your machine, feel free to delete this file and run your own package installations.
 
-- Instructions are sent out by HR
-- But make sure you can **share your screen**
 
-# Examples That Will Be Covered
 
-Both of these will be covered
+## Running the tests
 
-- Langauge of your choice
-- Nice to see a variety of languages
-
-## Coding Needing Refactoring
-
-This is written deliberatly badly
-
-The task for the candiate is refactor it and remove the code smells they find
-
-Time given 20 mins
-
-> We will not expect test to be written, but don't let that stop you if you find that helps you
-
-## Coding Needing Testing
-
-Code that has no unit tests which we want to be coveraged
-
-The task for the candiate is to
-
-- For the Existing Code add tests in a methodical manor
-- For the new code block write tests in a test driven manor to implement a simple piece of business logic
-
-## Is there a right answer?
-
-No its to simply to see that canidate can
-
-- Code
-- Refactor and write units tests in real time
-- Ask questions as they go along
-- Prepare inadvance
+Navigate into the ./InterviewQuestions/CodingToUnitTest/tests folder and use `npm run` to activate a Jest test run.
