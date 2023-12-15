@@ -1,48 +1,53 @@
-const _ = require("lodash");
-
-class Greeter {
+export class Greeter {
   greeting: string;
   constructor(message: string) {
     this.greeting = message;
   }
-  greet() {
+  greet(): string {
     return "Hello, " + this.greeting;
   }
 }
 
-interface IInventoryRepo {
+interface StockFetch {
   GetStock(productId: number): number;
 }
 
-class InventoryRepo implements IInventoryRepo {
+export class InventoryRepo implements StockFetch {
   public GetStock(productId: number): number {
     //This would actually call something like a DB to get the actual stock level
-    return Math.random() * 120;
+    let stockLevel: number = Math.round(Math.random() * 120)
+    console.log(`Stock level for ${productId}: ${stockLevel}.`)
+    return stockLevel
   }
 }
 
-class Calculator {
-  private readonly _inventoryRepo: IInventoryRepo;
-  constructor(inventoryRepo: IInventoryRepo) {
-    this._inventoryRepo = inventoryRepo;
+export class Calculator {
+  private readonly privInventoryRepo: InventoryRepo;
+  
+  constructor(inventoryRepo: StockFetch) {
+    this.privInventoryRepo = inventoryRepo;
   }
 
-  public GrossTotal(price: number, quanity: number) {
-    return price * quanity;
+  public GrossTotal(price: number, quantity: number) {
+    return price * quantity;
   }
 
   vatRate = 1.2;
 
-  public NetTotal(price: number, quanity: number) {
-    return this.GrossTotal(price, quanity) * this.vatRate;
+  public NetTotal(price: number, quantity: number) {
+    if(price < 0 || quantity < 0) {
+      throw new TypeError("Price and quantity inputs must be positive integers.")
+    } else {
+    return this.GrossTotal(price, quantity) * this.vatRate;
+    }
   }
 
-  public BulkBuyDiscount(quanity: number): number {
-    if (quanity < 100)
+  public BulkBuyDiscount(quantity: number): number {
+    if (quantity < 100)
       //No discount
       return 1;
 
-    if (quanity < 1000)
+    if (quantity < 1000)
       //10 percent
       return 0.9;
 
@@ -51,11 +56,11 @@ class Calculator {
   }
 
   public IsStockRunningLow(productId: number): boolean {
-    var currentStock = this._inventoryRepo.GetStock(productId);
+    var currentStock = this.privInventoryRepo.GetStock(productId);
     return currentStock < 10;
   }
 
-  public StockRunningLowMultipler(productId: number): number {
+  public LowStockMultipler(productId: number): number {
     if (this.IsStockRunningLow(productId)) {
       //add five percent if stock is running low
       return 1.05;
@@ -66,45 +71,27 @@ class Calculator {
   public FinalTotal(
     productId: number,
     price: number,
-    quanity: number,
+    quantity: number,
     calculateWithVat: boolean
   ): number {
     var intialTotal = calculateWithVat
-      ? this.NetTotal(price, quanity)
-      : this.GrossTotal(price, quanity);
+      ? this.NetTotal(price, quantity)
+      : this.GrossTotal(price, quantity);
 
     return (
       intialTotal *
-      this.StockRunningLowMultipler(quanity) *
-      this.BulkBuyDiscount(quanity)
+      this.LowStockMultipler(quantity) *
+      this.BulkBuyDiscount(quantity)
     );
   }
 
-  public IsStockAvailable(productId: number, quanity: number): boolean {
-    throw new Error("not Implemented");
+  public IsStockAvailable(productId: number, quantity: number): boolean {
+    if (productId && quantity === 0) {
+      console.log("No stock currently availble for productID:", productId)
+      return false;
+    } else {
+      console.log("Stock currently available for productID:", productId)
+      return true;
+    }
   }
 }
-
-const Chia = require("chai");
-const sinon = require("sinon");
-const sinonChai = require("sinon-chai");
-
-const Mocha = require("mocha");
-const assert = require("assert");
-const mocha = new Mocha();
-
-// Bit of a hack, but thats how to make it work in code pad
-mocha.suite.emit("pre-require", this, "solution", mocha);
-
-Mocha.describe("Test suite", function () {
-  Mocha.it("check boolean", function () {
-    assert.ok(true);
-  });
-
-  Mocha.it("check number", function () {
-    //Using Chia
-    Chia.expect(2).to.equal(2);
-  });
-});
-
-mocha.run();
