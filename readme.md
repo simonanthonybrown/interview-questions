@@ -1,6 +1,6 @@
 # Simon Brown Code Submission
 
-Hello to whoever may be reading this. I started learning JavaScript on the 08/12/23, moved on to TypeScript on 13/12/23 and have now done my best to refactor the StockCalculator.ts file and write some unit tests for the class methods it details.
+Hello to whoever may be reading this. I started learning JavaScript on the 08/12/23, moved on to TypeScript on 13/12/23 and have now done my best to refactor the StockCalculator.ts file and write some unit tests for the class methods it details. I focused purely on the TypeScript file and have removed all other files from this repo for simplicity.
 
 The learning curve moving from Python to JS then TS has been a big one, especially considering the package management, the strict typing of objects and parameters, and the move away from tabbed structure being the key to having your code run properly. There is an endless amount within these languages that I am yet to learn, but I've really enjoyed getting to grips with the basics.
 
