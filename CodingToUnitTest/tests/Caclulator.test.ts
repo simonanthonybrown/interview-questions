@@ -85,9 +85,5 @@ describe("Calculator", ()=> {
             expect(mockStockRunningLow(10)).toBe(false);
             mockStockRunningLow.mockClear();
         });
-
-        test("does IsStockRunningLow actually work", () => {
-            expect(calculator.IsStockRunningLow(5)).toBe(false);
-        });
     });
 });

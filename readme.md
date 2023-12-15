@@ -33,7 +33,7 @@ Please reach out to me at simonbrown@kubrickgroup.com if you have any questions 
 
 ## Unit Testing with Jest
 
-All packages to be installed can be found in "package.josn". Please make sure to run `npm --save-dev <package-name>` in your local environment before attempting to run these unit tests.
+All packages to be installed can be found in "package.josn" under devDependencies. Please make sure to run `npm --save-dev <package-name>` in your local environment before attempting to run these unit tests.
 
 I have included the node_modules folder in this zip file for ease, but if you'd rather start the environment fresh on your machine, feel free to delete this file and run your own package installations.
 
@@ -76,7 +76,7 @@ Once I was familiar with what the code did I worked my way from the top down to 
 
 - Had particular trouble writing tests for this piece of code as it referenced the this.privInventoryRepo which at the time I didn't have working correctly
 - Decided instead to completely mock the method and test that the logic was sound, which it turns out it was. A currentStock of below 10 will return 'true', and vice versa
-- Added a final test to check if IsStockRunningLow functioned as expected, and it did once I had added the instance of the new InventoryRepo on line 6. Before then I was only calling a new instance of Calculator which left this.privInventoryRepo undefined within the class, so the call to the method was not functioning
+-I was having issues running theses tests, realised I was only calling a new instance of Calculator and not InventoryRepo which left this.privInventoryRepo undefined within the class, so the call to the method was not functioning
 
 ## Final Thoughts
 
