@@ -35,9 +35,6 @@ Please reach out to me at simonbrown@kubrickgroup.com if you have any questions 
 
 All packages to be installed can be found in "package.josn" under devDependencies. Please make sure to run `npm --save-dev <package-name>` in your local environment before attempting to run these unit tests.
 
-I have included the node_modules folder in this zip file for ease, but if you'd rather start the environment fresh on your machine, feel free to delete this file and run your own package installations.
-
-
 ## Running the tests
 
 Navigate into the ./InterviewQuestions/CodingToUnitTest/tests folder and use `npm run` to activate a Jest test run.
